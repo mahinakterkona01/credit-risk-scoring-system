@@ -2,26 +2,48 @@
 
 The notebook saves a single pipeline that contains the preprocessing and the
 model together, plus a metadata file with the decision threshold and the risk
-bands. This module loads both and exposes one function for scoring applicants,
-so the notebook and the Streamlit app use exactly the same logic.
+bands.
+
+The model files are loaded locally when available. If they are not present
+(for example, on Streamlit Cloud), they are downloaded from Hugging Face.
 """
 
 import joblib
 import numpy as np
 import pandas as pd
 
+from huggingface_hub import hf_hub_download
+
 from .config import PIPELINE_PATH, METADATA_PATH
 
 
-def load_artifacts(pipeline_path=PIPELINE_PATH, metadata_path=METADATA_PATH):
-    """Load the saved pipeline and its metadata."""
-    if not pipeline_path.exists() or not metadata_path.exists():
-        raise FileNotFoundError(
-            "Model files not found. Run the notebook to the end to create "
-            f"{pipeline_path.name} and {metadata_path.name} in models/."
-        )
+# Hugging Face repository containing the saved model files
+HF_REPO_ID = "Kona11/credit-risk-scoring-model"
 
-    return joblib.load(pipeline_path), joblib.load(metadata_path)
+
+def load_artifacts(pipeline_path=PIPELINE_PATH, metadata_path=METADATA_PATH):
+    """Load the saved pipeline and metadata.
+
+    Local files are used when available. Otherwise, the files are downloaded
+    from the project's public Hugging Face repository.
+    """
+
+    # Use local files when they exist
+    if pipeline_path.exists() and metadata_path.exists():
+        return joblib.load(pipeline_path), joblib.load(metadata_path)
+
+    # Download from Hugging Face when running without local model files
+    pipeline_file = hf_hub_download(
+        repo_id=HF_REPO_ID,
+        filename="credit_risk_pipeline.joblib",
+    )
+
+    metadata_file = hf_hub_download(
+        repo_id=HF_REPO_ID,
+        filename="model_metadata.joblib",
+    )
+
+    return joblib.load(pipeline_file), joblib.load(metadata_file)
 
 
 def risk_category(probability, bands):
