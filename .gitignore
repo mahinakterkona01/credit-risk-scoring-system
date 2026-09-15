@@ -17,10 +17,13 @@ data/processed/*
 # Notebook
 .ipynb_checkpoints/
 
+# Reports
+reports/*.csv
+
+# Models
+models/*.joblib
+
 # Editor / OS
 .vscode/
 .DS_Store
 Thumbs.db
-
-# Reports
-reports/*.csv
