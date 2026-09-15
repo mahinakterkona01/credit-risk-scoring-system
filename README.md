@@ -6,7 +6,13 @@ applicant's past credit and payment behaviour.
 
 ## Live Demo
 
-[Streamlit App Link]
+**[Open the Live Streamlit App](https://credit-risk-scoring-system-lthnjmagbnxx74uxji5eue.streamlit.app)**
+
+## Model
+
+The trained model is hosted on Hugging Face for deployment.
+
+**[View the Model on Hugging Face](https://huggingface.co/Kona11/credit-risk-scoring-model)**
 
 ## Problem
 
