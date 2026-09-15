@@ -6,20 +6,19 @@ applicant's past credit and payment behaviour.
 
 ## Live Demo
 
-**[Open the Live Streamlit App](https://credit-risk-scoring-system-lthnjmagbnxx74uxji5eue.streamlit.app)**
+[**Open the Live Streamlit App**](https://credit-risk-scoring-system-lthnjmagbnxx74uxji5eue.streamlit.app/)
 
 ## Model
 
 The trained model is hosted on Hugging Face for deployment.
 
-**[View the Model on Hugging Face](https://huggingface.co/Kona11/credit-risk-scoring-model)**
+[**View the Model on Hugging Face**](https://huggingface.co/Kona11/credit-risk-scoring-model)
 
 ## Problem
 
 Lenders have to decide who is likely to repay. The available data is imbalanced:
 only about 8% of applicants in this dataset had repayment difficulties, so a
-model that predicts "no difficulty" for everyone would already be about 92%
-accurate and completely useless. The project is built around that problem —
+model that predicts "no difficulty" for everyonewould already be about 92% accurate but would provide very little value for identifying risky applicants. The project is built around that problem —
 imbalance-aware metrics, an explicit decision threshold, and explainability for
 individual predictions.
 
@@ -106,8 +105,7 @@ turn.
 Accuracy is reported but not used to pick a model or a threshold — at an 8%
 positive rate it barely reacts to how well the risky class is being found.
 Model selection and threshold selection are driven by ROC-AUC and PR-AUC
-(average precision) instead, since PR-AUC only looks at the positive class
-and a random model would score close to the ~0.08 base rate.
+(average precision) instead, PR-AUC is especially useful here because the positive class is rare and it focuses on the model's precision-recall trade-off for identifying applicants with repayment difficulties.
 
 Validation results across all five model versions:
 
