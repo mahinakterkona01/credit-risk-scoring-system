@@ -18,7 +18,7 @@ The trained model is hosted on Hugging Face for deployment.
 
 Lenders have to decide who is likely to repay. The available data is imbalanced:
 only about 8% of applicants in this dataset had repayment difficulties, so a
-model that predicts "no difficulty" for everyonewould already be about 92% accurate but would provide very little value for identifying risky applicants. The project is built around that problem —
+model that predicts "no difficulty" for everyone would already be about 92% accurate but would provide very little value for identifying risky applicants. The project is built around that problem —
 imbalance-aware metrics, an explicit decision threshold, and explainability for
 individual predictions.
 
